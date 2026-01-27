@@ -1,0 +1,21 @@
+# --- Procesamiento Geoespacial y Satelital ---
+geopandas             # Manejo de vectores y GeoJSON
+pystac-client         # Conexión a catálogos satelitales (STAC)
+stackstac             # Crea cubos de datos (xarray) desde STAC
+planetary-computer    # Autenticación para datos de Microsoft
+rasterio              # Lectura/Escritura de rásters
+rioxarray             # Extensión de xarray para SIG
+
+# --- Datos Climáticos ---
+cdsapi                # API para descargar datos de ERA5 (Copernicus)
+
+# --- Análisis y Gráficos ---
+pandas                # Manejo de tablas de datos
+numpy                 # Operaciones matemáticas
+matplotlib            # Gráficos básicos
+seaborn               # Gráficos estadísticos bonitos
+xarray                # Manejo de cubos de datos climáticos/satelitales
+
+# --- Visualización Interactiva ---
+folium                # Mapas interactivos rápidos
+mapclassify           # Clasificación de datos para mapas
