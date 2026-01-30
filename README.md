@@ -4,7 +4,7 @@
 ---
 
 ## 🚀 Strategic Value Proposition
-Understanding crop performance requires more than just looking at a green map. This engine synchronizes **Sentinel-2 Multispectral Data (10m)** with **ERA5-Land Soil Moisture (9km)** to quantify the biological efficiency of a field. By measuring the "Mirror Effect" between vegetation vigor and water depletion, we provide a high-resolution diagnostic of crop health and resilience.
+Understanding crop performance requires more than just looking at a green map. This engine synchronizes **Sentinel-2 Multispectral Data (10m)** with **ERA5-Land Soil Moisture (9km)** to quantify the biological efficiency of a field. By measuring the **"Mirror Effect"** between vegetation vigor and water depletion, we provide a high-resolution diagnostic of crop health and resilience.
 
 **Key Business Benefits:**
 * **Resource Optimization:** Identify exactly which areas of a lot are most sensitive to water stress.
@@ -15,40 +15,53 @@ Understanding crop performance requires more than just looking at a green map. T
 
 ## 📊 Analytical Deliverables & Insights
 
-### 1. Spatial Sensitivity Map (Pearson r)
-A high-resolution raster (10m/pixel) using a **Pearson Correlation engine**. It identifies the "Water-Usage Zones" where vegetation growth is most synchronized with soil moisture availability.
+### 1. Historical Climate Context
+Before analyzing the current season, the system evaluates the **10-year soil moisture baseline**. This ensures that the 2023 observations are interpreted within the correct climatic frequency (Normal vs. Drought years).
+
+<p align="center">
+  <img src="outputs/diagnostico_iowa_10y.png" width="700" title="Historical Climate Context">
+</p>
+
+
+
+### 2. Biophysical "Mirror Effect" (2023)
+By overlapping **NDVI** and **Soil Moisture** time series, we visualize the temporal synchronization of the crop. A healthy, high-yield metabolism is characterized by a synchronized depletion of water as biomass peaks.
+
+<p align="center">
+  <img src="outputs/correlation_ndvi_climate.png" width="700" title="Vegetation Response 2023">
+</p>
+
+
+
+### 3. Statistical Precision & Regression
+We don't just show correlations; we prove them. The model achieved a **Pearson $r$ of -0.915**, indicating that **83.7%** of the crop's vigor is directly explained by active water transpiration dynamics.
+
+| Metric | Value | Interpretation |
+| :--- | :--- | :--- |
+| **Pearson (r)** | **-0.915** | Extremely strong inverse correlation (Active consumption). |
+| **R-Squared ($R^2$)** | **83.7%** | High predictive power of soil moisture over biomass. |
+| **p-value** | **0.00388** | 99% Statistical confidence. |
+
+<p align="center">
+  <img src="outputs/scatter_correlation.png" width="500" title="Scatter Correlation Plot">
+</p>
+
+### 4. Spatial Sensitivity Map (Pearson r)
+A high-resolution raster (10m/pixel) that identifies "Water-Usage Zones". Red/Yellow zones (in inverse logic) represent the most productive areas where the plant-soil-atmosphere continuum is optimized.
 
 <p align="center">
   <img src="outputs/spatial_correlation_map.png" width="600" title="Spatial Correlation Map">
 </p>
-
-
-
-### 2. Biophysical Regression (NDVI vs. Moisture)
-We don't just show correlations; we prove them. This scatter plot demonstrates the inverse relationship during the peak growing season, validating that biomass increase is driving soil water consumption.
-
-<p align="center">
-  <img src="outputs/scatter_correlation.png" width="600" title="Scatter Correlation Plot">
-</p>
-
-
-
-> **Key Insight:** Our 2023 model achieved a **Pearson $r$ of -0.915**, indicating that 83.7% of the crop's vigor is directly explained by active water transpiration dynamics.
-
-### 3. Automated Executive Reporting
-A "ready-to-present" PDF report generated automatically, summarizing methodology, statistical precision, and management recommendations.
 
 ---
 
 ## 🛠️ Technical Workflow & Criteria
 The system processes millions of pixels using a **Time-Series Alignment** method to match satellite irregular captures with monthly climate reanalysis.
 
-| Variable | Source | Rationale |
-| :--- | :--- | :--- |
-| **NDVI** | Sentinel-2 L2A | Primary proxy for photosynthetic activity and biomass. |
-| **Soil Moisture** | ERA5-Land (swvl1) | Volumetric water content in the topsoil (0-7cm). |
-| **Temporal Resampling**| 1-Month Step | Aligns disparate data sources for robust statistical comparison. |
-| **Seasonal Filtering** | Apr - Oct | Focuses analysis on the active phenological cycle. |
+1. **Data Ingestion:** Sentinel-2 L2A (Multispectral) + ERA5-Land (swvl1).
+2. **Preprocessing:** Cloud masking, NDVI calculation, and spatial resampling.
+3. **Statistical Engine:** Pixel-level Pearson correlation and significance testing.
+4. **Automated Reporting:** 3-page professional PDF generation with `fpdf2`.
 
 ---
 
@@ -76,6 +89,7 @@ NDVI_temporal/
 ├─ README.md
 ├─ requirements.txt  
 └─ .gitignore
+```
 
 ---
 
